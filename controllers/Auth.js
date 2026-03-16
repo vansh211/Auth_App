@@ -81,7 +81,7 @@ exports.login = async(req,res) => {
             console.log(user);
             
             const option = {
-                expires : new Date(Date.now() + 1000 * 60 * 60 * 24 * 3),
+                expires : new Date(Date.now() + 30000),
                 httpOnly:true 
             }
             res.cookie("token", token, option).status(200).json({
@@ -90,6 +90,14 @@ exports.login = async(req,res) => {
                 user,
                 message: "user lggedIn success"
             })
+
+
+            // res.status(200).json({
+            //     sucess : true,
+            //     token,
+            //     user,
+            //     message: "user lggedIn success"
+            // })
          }
          else{
             // wrong password

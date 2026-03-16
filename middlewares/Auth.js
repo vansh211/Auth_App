@@ -4,7 +4,14 @@ require('dotenv').config();
 
 exports.auth = (req, res, next) => {
     try{
-        const token = req.body.token || req.cookie.token;
+
+
+        // Only check for token in cookies
+        console.log("cookie ->", req.body.token)
+        console.log("cookie ->", req.cookies.token);
+        console.log("header ->", req.header("Authorization")?.replace("Bearer ", ""));
+        
+        const token = req.body.token || req.cookies.token || req.header("Authorization")?.replace("Bearer ", ""); // to get token from header or cookie
 
         if(!token) { // if no tokn 
             return res.status(401).json({
@@ -32,7 +39,7 @@ exports.auth = (req, res, next) => {
     } catch(error) {
         return res.status(400).json({
             success: false,
-            message : "something erong in auth"
+            message : "something went wrong in auth"
         })
     }
 }
