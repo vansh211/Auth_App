@@ -81,7 +81,7 @@ exports.login = async(req,res) => {
             console.log(user);
             
             const option = {
-                expires : new Date(Date.now() + 30000),
+                expires : new Date(Date.now() + 3 * 60 * 60 * 24 * 10000),
                 httpOnly:true 
             }
             res.cookie("token", token, option).status(200).json({
